@@ -153,6 +153,12 @@
 
         <li>
 
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan"></span>synaptic</span>
+
+        </li>
+
+        <li>
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">synaptic.</span>Architect</span>
 
         </li>
@@ -1056,6 +1062,52 @@
 
     </ol></li>
 
+    <li class="apidocModuleLi"><a href="#apidoc.module.synaptic.synaptic">module synaptic.synaptic</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.synaptic.synaptic.Layer">
+            function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Layer
+            <span class="apidocSignatureSpan">(size, label)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.synaptic.synaptic.Network">
+            function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Network
+            <span class="apidocSignatureSpan">(layers)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.synaptic.synaptic.Neuron">
+            function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Neuron
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.synaptic.synaptic.Trainer">
+            function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Trainer
+            <span class="apidocSignatureSpan">(network, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">synaptic.synaptic.</span>Architect</span>
+
+        </li>
+
+    </ol></li>
+
 </ol></div>
 
 <div class="apidocSectionDiv">
@@ -1540,6 +1592,8 @@
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
+
+
 
 
 
@@ -5536,6 +5590,117 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.synaptic.synaptic" id="apidoc.module.synaptic.synaptic">module synaptic.synaptic</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.synaptic.synaptic.Layer" id="apidoc.element.synaptic.synaptic.Layer">
+        function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Layer
+        <span class="apidocSignatureSpan">(size, label)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Layer(size, label) {
+  this.size = size | 0;
+  this.list = [];
+  this.label = label || null;
+  this.connectedTo = [];
+
+  while (size--) {
+    var neuron = new Neuron();
+    this.list.push(neuron);
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.synaptic.synaptic.Network" id="apidoc.element.synaptic.synaptic.Network">
+        function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Network
+        <span class="apidocSignatureSpan">(layers)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Network(layers) {
+  if (typeof layers != &#x27;undefined&#x27;) {
+    this.layers = layers || {
+      input: null,
+      hidden: {},
+      output: null
+    };
+    this.optimized = null;
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.synaptic.synaptic.Neuron" id="apidoc.element.synaptic.synaptic.Neuron">
+        function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Neuron
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Neuron() {
+  this.ID = Neuron.uid();
+  this.label = null;
+  this.connections = {
+    inputs: {},
+    projected: {},
+    gated: {}
+  };
+  this.error = {
+    responsibility: 0,
+    projected: 0,
+    gated: 0
+  };
+  this.trace = {
+    elegibility: {},
+    extended: {},
+    influences: {}
+  };
+  this.state = 0;
+  this.old = 0;
+  this.activation = 0;
+  this.selfconnection = new Neuron.connection(this, this, 0); // weight = 0 -&#x3e; not connected
+  this.squash = Neuron.squash.LOGISTIC;
+  this.neighboors = {};
+  this.bias = Math.random() * .2 - .1;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.synaptic.synaptic.Trainer" id="apidoc.element.synaptic.synaptic.Trainer">
+        function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Trainer
+        <span class="apidocSignatureSpan">(network, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Trainer(network, options) {
+  options = options || {};
+  this.network = network;
+  this.rate = options.rate || .2;
+  this.iterations = options.iterations || 100000;
+  this.error = options.error || .005;
+  this.cost = options.cost || null;
+  this.crossValidate = options.crossValidate || null;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
 
 
 </div>
