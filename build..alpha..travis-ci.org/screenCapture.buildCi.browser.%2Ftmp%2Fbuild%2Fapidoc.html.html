@@ -146,12 +146,6 @@
 
         <li>
 
-            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan"></span>synaptic</span>
-
-        </li>
-
-        <li>
-
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">synaptic.</span>Architect</span>
 
         </li>
@@ -1055,52 +1049,6 @@
 
     </ol></li>
 
-    <li class="apidocModuleLi"><a href="#apidoc.module.synaptic.synaptic">module synaptic.synaptic</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.synaptic.synaptic.Layer">
-            function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Layer
-            <span class="apidocSignatureSpan">(size, label)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.synaptic.synaptic.Network">
-            function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Network
-            <span class="apidocSignatureSpan">(layers)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.synaptic.synaptic.Neuron">
-            function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Neuron
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.synaptic.synaptic.Trainer">
-            function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Trainer
-            <span class="apidocSignatureSpan">(network, options)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">synaptic.synaptic.</span>Architect</span>
-
-        </li>
-
-    </ol></li>
-
 </ol></div>
 
 <div class="apidocSectionDiv">
@@ -1585,8 +1533,6 @@
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-
-
 
 
 
@@ -2618,7 +2564,23 @@
 
   fromLayer.connectedTo.push(this);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    elegibility: {},
+	    extended: {},
+	    influences: {}
+	  };
+	  this.state = 0;
+	  this.old = 0;
+	  this.activation = 0;
+	  this.selfconnection = new Neuron.<span class="apidocCodeKeywordSpan">connection</span>(this, this, 0); // weight = 0 -&gt;
+not connected
+	  this.squash = Neuron.squash.LOGISTIC;
+	  this.neighboors = {};
+	  this.bias = Math.random() * .2 - .1;
+	}
+
+	Neuron.prototype = {
+...</pre></li>
     </ul>
 
 
@@ -2686,7 +2648,23 @@
 
   fromLayer.connectedTo.push(this);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    elegibility: {},
+	    extended: {},
+	    influences: {}
+	  };
+	  this.state = 0;
+	  this.old = 0;
+	  this.activation = 0;
+	  this.selfconnection = new Neuron.<span class="apidocCodeKeywordSpan">connection</span>(this, this, 0); // weight = 0 -&gt;
+not connected
+	  this.squash = Neuron.squash.LOGISTIC;
+	  this.neighboors = {};
+	  this.bias = Math.random() * .2 - .1;
+	}
+
+	Neuron.prototype = {
+...</pre></li>
     </ul>
 
 
@@ -2701,7 +2679,23 @@
     <li>description and source-code<pre class="apidocCodePre">uid = function () {
   return connections++;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	if (module) module.exports = Neuron;
+
+	/******************************************************************************************
+	                                         NEURON
+	*******************************************************************************************/
+
+	function Neuron() {
+	  this.ID = Neuron.<span class="apidocCodeKeywordSpan">uid</span>();
+	  this.label = null;
+	  this.connections = {
+	    inputs: {},
+	    projected: {},
+	    gated: {}
+	  };
+	  this.error = {
+...</pre></li>
     </ul>
 
 
@@ -2772,7 +2766,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
   this.list.push(neuron);
   this.size++;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    neuron.old = config.old;
+	    neuron.activation = config.activation;
+	    neuron.bias = config.bias;
+	    neuron.squash = config.squash in Neuron.squash ? Neuron.squash[config.squash] : Neuron.squash.LOGISTIC;
+	    neurons.push(neuron);
+
+	    if (config.layer == 'input')
+	      layers.input.<span class="apidocCodeKeywordSpan">add</span>(neuron);
+	    else if (config.layer == 'output')
+	      layers.output.add(neuron);
+	    else {
+	      if (typeof layers.hidden[config.layer] == 'undefined')
+	        layers.hidden[config.layer] = new Layer();
+	      layers.hidden[config.layer].add(neuron);
+	    }
+...</pre></li>
     </ul>
 
 
@@ -2790,7 +2800,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     neuron.clear();
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	        this.trace.extended[trace][extended] = 0;
+
+	    this.error.responsibility = this.error.projected = this.error.gated = 0;
+	  },
+
+	  // all the connections are randomized and the traces are cleared
+	  reset: function() {
+	    this.<span class="apidocCodeKeywordSpan">clear</span>();
+
+	    for (var type in this.connections)
+	      for (var connection in this.connections[type])
+	        this.connections[type][connection].weight = Math.random() * .2 - .1;
+	    this.bias = Math.random() * .2 - .1;
+
+	    this.old = this.state = this.activation = 0;
+...</pre></li>
     </ul>
 
 
@@ -2829,7 +2855,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
   if (connections == this.size)
     return Layer.connectionType.ONE_TO_ONE;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    // self-connection
+	    if (neuron == this) {
+	      this.selfconnection.weight = 1;
+	      return this.selfconnection;
+	    }
+
+	    // check if connection already exists
+	    var connected = this.<span class="apidocCodeKeywordSpan">connected</span>(neuron);
+	    if (connected &amp;&amp; connected.type == "projected") {
+	      // update connection
+	      if (typeof weight != 'undefined')
+	        connected.connection.weight = weight;
+	      // return existing connection
+	      return connected.connection;
+	    } else {
+...</pre></li>
     </ul>
 
 
@@ -2912,7 +2954,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     <li>description and source-code<pre class="apidocCodePre">neurons = function () {
   return this.list;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	  },
+
+	  // hardcodes the behaviour of the whole network into a single optimized function
+	  optimize: function() {
+
+	    var that = this;
+	    var optimized = {};
+	    var neurons = this.<span class="apidocCodeKeywordSpan">neurons</span>();
+
+	    for (var i in neurons) {
+	      var neuron = neurons[i].neuron;
+	      var layer = neurons[i].layer;
+	      while (neuron.neuron)
+	        neuron = neuron.neuron;
+	      optimized = neuron.optimize(optimized, layer);
+...</pre></li>
     </ul>
 
 
@@ -2982,7 +3040,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     }
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+	    if (typeof target != 'undefined') {
+	      if (target.length != this.size)
+	        throw new Error("TARGET size and LAYER size must be the same to propagate!");
+
+	      for (var id = this.list.length - 1; id &gt;= 0; id--) {
+	        var neuron = this.list[id];
+	        neuron.<span class="apidocCodeKeywordSpan">propagate</span>(rate, target[id]);
+	      }
+	    } else {
+	      for (var id = this.list.length - 1; id &gt;= 0; id--) {
+	        var neuron = this.list[id];
+	        neuron.propagate(rate);
+	      }
+	    }
+...</pre></li>
     </ul>
 
 
@@ -3000,7 +3074,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     neuron.reset();
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    }
+	  },
+
+	  // resets all the neurons in the layer
+	  reset: function() {
+	    for (var id in this.list) {
+	      var neuron = this.list[id];
+	      neuron.<span class="apidocCodeKeywordSpan">reset</span>();
+	    }
+	  },
+
+	  // returns all the neurons in the layer (array)
+	  neurons: function() {
+	    return this.list;
+	  },
+...</pre></li>
     </ul>
 
 
@@ -3021,7 +3111,22 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
   }
   return true;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	  connected: function(neuron) {
+	    var result = {
+	      type: null,
+	      connection: false
+	    };
+
+	    if (this == neuron) {
+	      if (this.<span class="apidocCodeKeywordSpan">selfconnected</span>()) {
+	        result.type = 'selfconnection';
+	        result.connection = this.selfconnection;
+	        return result;
+	      } else
+	        return false;
+	    }
+...</pre></li>
     </ul>
 
 
@@ -3048,21 +3153,21 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
   return this;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-	var outputLayer = new Layer(output);
 
-	// connect the layers
-	inputLayer.project(hiddenLayer);
-	hiddenLayer.project(outputLayer);
 
-	// set the layers
-	this.<span class="apidocCodeKeywordSpan">set</span>({
-		input: inputLayer,
-		hidden: [hiddenLayer],
-		output: outputLayer
-	});
-}
 
-// extend the prototype chain
+
+// Karma configuration
+
+module.exports = function(config) {
+config.<span class="apidocCodeKeywordSpan">set</span>({
+  basePath: '',
+  frameworks: ['mocha'],
+  files: [
+    'dist/synaptic.js',
+    'test/[^_]*.js'
+  ],
+  exclude: [
 ...</pre></li>
     </ul>
 
@@ -3150,7 +3255,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
 
   return new Network(layers);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    var blobURL = window.URL.createObjectURL(blob);
+
+	    return new Worker(blobURL);
+	  },
+
+	  // returns a copy of the network
+	  clone: function() {
+	    return Network.<span class="apidocCodeKeywordSpan">fromJSON</span>(this.toJSON());
+	  }
+	};
+
+	/**
+	 * Creates a static String to store the source code of the functions
+	 *  that are identical for all the workers (train, _trainSet, test)
+	 *
+...</pre></li>
     </ul>
 
 
@@ -3187,7 +3308,25 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
 
   return Network._SHARED_WORKER_FUNCTIONS = train_f + _trainSet_f + test_f;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    workerOptions.iterations = options.iterations || 100000;
+	    workerOptions.error = options.error || .005;
+	    workerOptions.cost = options.cost || null;
+	    workerOptions.crossValidate = options.crossValidate || null;
+
+	    // Cost function might be different for each worker
+	    costFunction = "var cost = " + (options &amp;&amp; options.cost || this.cost || Trainer.cost.MSE) + ";\n&amp;#
+x22;;
+	    var workerFunction = Network.<span class="apidocCodeKeywordSpan">getWorkerSharedFunctions</span>();
+	    workerFunction = workerFunction.replace(/var cost = options &amp;&amp; options\.cost \|\| this\.cost \|\| Trainer\.cost\.
+MSE;/g, costFunction);
+
+	    // Set what we do when training is finished
+	    workerFunction = workerFunction.replace('return results;',
+	                      'postMessage({action: "done", message: results, memoryBuffer: F}, [F.buffer]);');
+
+	    // Replace log with postmessage
+...</pre></li>
     </ul>
 
 
@@ -3264,7 +3403,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
   if (this.optimized)
     this.optimized.reset();
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	        this.trace.extended[trace][extended] = 0;
+
+	    this.error.responsibility = this.error.projected = this.error.gated = 0;
+	  },
+
+	  // all the connections are randomized and the traces are cleared
+	  reset: function() {
+	    this.<span class="apidocCodeKeywordSpan">clear</span>();
+
+	    for (var type in this.connections)
+	      for (var connection in this.connections[type])
+	        this.connections[type][connection].weight = Math.random() * .2 - .1;
+	    this.bias = Math.random() * .2 - .1;
+
+	    this.old = this.state = this.activation = 0;
+...</pre></li>
     </ul>
 
 
@@ -3279,7 +3434,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     <li>description and source-code<pre class="apidocCodePre">clone = function () {
   return Network.fromJSON(this.toJSON());
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+describe("Optimized and Unoptimized Networks Equivalency", function () {
+
+var optimized;
+var unoptimized;
+beforeEach(function () {
+  optimized = new LSTM(2, 1, 1);
+  unoptimized = optimized.<span class="apidocCodeKeywordSpan">clone</span>();
+  unoptimized.setOptimize(false);
+});
+
+
+it('should produce the same output for both networks', function () {
+  this.timeout(30000);
+  for (var i = 0; i &lt; 1000; i++) {
+...</pre></li>
     </ul>
 
 
@@ -3327,7 +3498,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     <li>description and source-code<pre class="apidocCodePre">inputs = function () {
   return this.layers.input.size;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    // Start the worker
+	    worker.postMessage({action: 'startTraining'});
+	  },
+
+	  // trains an XOR to the network
+	  XOR: function(options) {
+
+	    if (this.network.<span class="apidocCodeKeywordSpan">inputs</span>() != 2 || this.network.outputs() != 1)
+	      throw new Error("Incompatible network (2 inputs, 1 output)");
+
+	    var defaults = {
+	      iterations: 100000,
+	      log: false,
+	      shuffle: true,
+	      cost: Trainer.cost.MSE
+...</pre></li>
     </ul>
 
 
@@ -3368,7 +3555,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
 
   return neurons;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	  },
+
+	  // hardcodes the behaviour of the whole network into a single optimized function
+	  optimize: function() {
+
+	    var that = this;
+	    var optimized = {};
+	    var neurons = this.<span class="apidocCodeKeywordSpan">neurons</span>();
+
+	    for (var i in neurons) {
+	      var neuron = neurons[i].neuron;
+	      var layer = neurons[i].layer;
+	      while (neuron.neuron)
+	        neuron = neuron.neuron;
+	      optimized = neuron.optimize(optimized, layer);
+...</pre></li>
     </ul>
 
 
@@ -3458,7 +3661,22 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
   this.activate = network.activate;
   this.propagate = network.propagate;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	      for (var layer in this.layers.hidden)
+	        this.layers.hidden[layer].activate();
+	      return this.layers.output.activate();
+	    }
+	    else
+	    {
+	      if (this.optimized == null)
+	        this.<span class="apidocCodeKeywordSpan">optimize</span>();
+	      return this.optimized.activate(input);
+	    }
+	  },
+
+	  // back-propagate the error thru the network
+	  propagate: function(rate, target) {
+...</pre></li>
     </ul>
 
 
@@ -3473,7 +3691,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     <li>description and source-code<pre class="apidocCodePre">outputs = function () {
   return this.layers.output.size;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    // Start the worker
+	    worker.postMessage({action: 'startTraining'});
+	  },
+
+	  // trains an XOR to the network
+	  XOR: function(options) {
+
+	    if (this.network.inputs() != 2 || this.network.<span class="apidocCodeKeywordSpan">outputs</span>() != 1)
+	      throw new Error("Incompatible network (2 inputs, 1 output)");
+
+	    var defaults = {
+	      iterations: 100000,
+	      log: false,
+	      shuffle: true,
+	      cost: Trainer.cost.MSE
+...</pre></li>
     </ul>
 
 
@@ -3545,7 +3779,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     this.optimized.propagate(rate, target);
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+	    if (typeof target != 'undefined') {
+	      if (target.length != this.size)
+	        throw new Error("TARGET size and LAYER size must be the same to propagate!");
+
+	      for (var id = this.list.length - 1; id &gt;= 0; id--) {
+	        var neuron = this.list[id];
+	        neuron.<span class="apidocCodeKeywordSpan">propagate</span>(rate, target[id]);
+	      }
+	    } else {
+	      for (var id = this.list.length - 1; id &gt;= 0; id--) {
+	        var neuron = this.list[id];
+	        neuron.propagate(rate);
+	      }
+	    }
+...</pre></li>
     </ul>
 
 
@@ -3574,7 +3824,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
   if (this.optimized)
     this.optimized.reset();
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    }
+	  },
+
+	  // resets all the neurons in the layer
+	  reset: function() {
+	    for (var id in this.list) {
+	      var neuron = this.list[id];
+	      neuron.<span class="apidocCodeKeywordSpan">reset</span>();
+	    }
+	  },
+
+	  // returns all the neurons in the layer (array)
+	  neurons: function() {
+	    return this.list;
+	  },
+...</pre></li>
     </ul>
 
 
@@ -3648,7 +3914,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     }
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	      this.optimized.reset();
+	    this.layers.output.gate(connection, type);
+	  },
+
+	  // clear all elegibility traces and extended elegibility traces (the network forgets its context, but not what was trained)
+	  clear: function() {
+
+	    this.<span class="apidocCodeKeywordSpan">restore</span>();
+
+	    var inputLayer = this.layers.input,
+	      outputLayer = this.layers.output;
+
+	    inputLayer.clear();
+	    for (var layer in this.layers.hidden) {
+	      var hiddenLayer = this.layers.hidden[layer];
+...</pre></li>
     </ul>
 
 
@@ -3667,21 +3949,21 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     this.optimized.reset();
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-	var outputLayer = new Layer(output);
 
-	// connect the layers
-	inputLayer.project(hiddenLayer);
-	hiddenLayer.project(outputLayer);
 
-	// set the layers
-	this.<span class="apidocCodeKeywordSpan">set</span>({
-		input: inputLayer,
-		hidden: [hiddenLayer],
-		output: outputLayer
-	});
-}
 
-// extend the prototype chain
+
+// Karma configuration
+
+module.exports = function(config) {
+config.<span class="apidocCodeKeywordSpan">set</span>({
+  basePath: '',
+  frameworks: ['mocha'],
+  files: [
+    'dist/synaptic.js',
+    'test/[^_]*.js'
+  ],
+  exclude: [
 ...</pre></li>
     </ul>
 
@@ -3700,7 +3982,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     this.optimized.reset();
   this.optimized = bool? null : false;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+describe("Optimized and Unoptimized Networks Equivalency", function () {
+
+var optimized;
+var unoptimized;
+beforeEach(function () {
+  optimized = new LSTM(2, 1, 1);
+  unoptimized = optimized.clone();
+  unoptimized.<span class="apidocCodeKeywordSpan">setOptimize</span>(false);
+});
+
+
+it('should produce the same output for both networks', function () {
+  this.timeout(30000);
+  for (var i = 0; i &lt; 1000; i++) {
+    var input = generateRandomArray(2);
+...</pre></li>
     </ul>
 
 
@@ -3897,7 +4195,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     connections: connections
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    var blobURL = window.URL.createObjectURL(blob);
+
+	    return new Worker(blobURL);
+	  },
+
+	  // returns a copy of the network
+	  clone: function() {
+	    return Network.fromJSON(this.<span class="apidocCodeKeywordSpan">toJSON</span>());
+	  }
+	};
+
+	/**
+	 * Creates a static String to store the source code of the functions
+	 *  that are identical for all the workers (train, _trainSet, test)
+	 *
+...</pre></li>
     </ul>
 
 
@@ -3969,7 +4283,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
 
   return new Worker(blobURL);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    }
+	    var that = this;
+
+	    if (!this.network.optimized)
+	      this.network.optimize();
+
+	    // Create a new worker
+	    var worker = this.network.<span class="apidocCodeKeywordSpan">worker</span>(this.network.optimized.memory, set, options);
+
+	    // train the worker
+	    worker.onmessage = function(e) {
+	      switch(e.data.action) {
+	          case 'done':
+	            var iterations = e.data.message.iterations;
+	            var error = e.data.message.error;
+...</pre></li>
     </ul>
 
 
@@ -4037,7 +4367,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
   this.gain = 1;
   this.gater = null;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    elegibility: {},
+	    extended: {},
+	    influences: {}
+	  };
+	  this.state = 0;
+	  this.old = 0;
+	  this.activation = 0;
+	  this.selfconnection = new Neuron.<span class="apidocCodeKeywordSpan">connection</span>(this, this, 0); // weight = 0 -&gt;
+not connected
+	  this.squash = Neuron.squash.LOGISTIC;
+	  this.neighboors = {};
+	  this.bias = Math.random() * .2 - .1;
+	}
+
+	Neuron.prototype = {
+...</pre></li>
     </ul>
 
 
@@ -4070,7 +4416,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     <li>description and source-code<pre class="apidocCodePre">uid = function () {
   return neurons++;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	if (module) module.exports = Neuron;
+
+	/******************************************************************************************
+	                                         NEURON
+	*******************************************************************************************/
+
+	function Neuron() {
+	  this.ID = Neuron.<span class="apidocCodeKeywordSpan">uid</span>();
+	  this.label = null;
+	  this.connections = {
+	    inputs: {},
+	    projected: {},
+	    gated: {}
+	  };
+	  this.error = {
+...</pre></li>
     </ul>
 
 
@@ -4102,7 +4464,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
   this.gain = 1;
   this.gater = null;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    elegibility: {},
+	    extended: {},
+	    influences: {}
+	  };
+	  this.state = 0;
+	  this.old = 0;
+	  this.activation = 0;
+	  this.selfconnection = new Neuron.<span class="apidocCodeKeywordSpan">connection</span>(this, this, 0); // weight = 0 -&gt;
+not connected
+	  this.squash = Neuron.squash.LOGISTIC;
+	  this.neighboors = {};
+	  this.bias = Math.random() * .2 - .1;
+	}
+
+	Neuron.prototype = {
+...</pre></li>
     </ul>
 
 
@@ -4117,7 +4495,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     <li>description and source-code<pre class="apidocCodePre">uid = function () {
   return connections++;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	if (module) module.exports = Neuron;
+
+	/******************************************************************************************
+	                                         NEURON
+	*******************************************************************************************/
+
+	function Neuron() {
+	  this.ID = Neuron.<span class="apidocCodeKeywordSpan">uid</span>();
+	  this.label = null;
+	  this.connections = {
+	    inputs: {},
+	    projected: {},
+	    gated: {}
+	  };
+	  this.error = {
+...</pre></li>
     </ul>
 
 
@@ -4245,7 +4639,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
 
   this.error.responsibility = this.error.projected = this.error.gated = 0;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	        this.trace.extended[trace][extended] = 0;
+
+	    this.error.responsibility = this.error.projected = this.error.gated = 0;
+	  },
+
+	  // all the connections are randomized and the traces are cleared
+	  reset: function() {
+	    this.<span class="apidocCodeKeywordSpan">clear</span>();
+
+	    for (var type in this.connections)
+	      for (var connection in this.connections[type])
+	        this.connections[type][connection].weight = Math.random() * .2 - .1;
+	    this.bias = Math.random() * .2 - .1;
+
+	    this.old = this.state = this.activation = 0;
+...</pre></li>
     </ul>
 
 
@@ -4289,7 +4699,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
 
   return false;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    // self-connection
+	    if (neuron == this) {
+	      this.selfconnection.weight = 1;
+	      return this.selfconnection;
+	    }
+
+	    // check if connection already exists
+	    var connected = this.<span class="apidocCodeKeywordSpan">connected</span>(neuron);
+	    if (connected &amp;&amp; connected.type == "projected") {
+	      // update connection
+	      if (typeof weight != 'undefined')
+	        connected.connection.weight = weight;
+	      // return existing connection
+	      return connected.connection;
+	    } else {
+...</pre></li>
     </ul>
 
 
@@ -4485,7 +4911,22 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
       var input_activation = getVar(input.from, 'activation');
       var input_weight = getVar(input, 'weight');
       if (input.gat ...</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	      for (var layer in this.layers.hidden)
+	        this.layers.hidden[layer].activate();
+	      return this.layers.output.activate();
+	    }
+	    else
+	    {
+	      if (this.optimized == null)
+	        this.<span class="apidocCodeKeywordSpan">optimize</span>();
+	      return this.optimized.activate(input);
+	    }
+	  },
+
+	  // back-propagate the error thru the network
+	  propagate: function(rate, target) {
+...</pre></li>
     </ul>
 
 
@@ -4626,7 +5067,23 @@ neuron which its input/s is/are gated by this neuron
   // adjust bias
   this.bias += rate * this.error.responsibility;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+	    if (typeof target != 'undefined') {
+	      if (target.length != this.size)
+	        throw new Error("TARGET size and LAYER size must be the same to propagate!");
+
+	      for (var id = this.list.length - 1; id &gt;= 0; id--) {
+	        var neuron = this.list[id];
+	        neuron.<span class="apidocCodeKeywordSpan">propagate</span>(rate, target[id]);
+	      }
+	    } else {
+	      for (var id = this.list.length - 1; id &gt;= 0; id--) {
+	        var neuron = this.list[id];
+	        neuron.propagate(rate);
+	      }
+	    }
+...</pre></li>
     </ul>
 
 
@@ -4648,7 +5105,23 @@ neuron which its input/s is/are gated by this neuron
 
   this.old = this.state = this.activation = 0;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	    }
+	  },
+
+	  // resets all the neurons in the layer
+	  reset: function() {
+	    for (var id in this.list) {
+	      var neuron = this.list[id];
+	      neuron.<span class="apidocCodeKeywordSpan">reset</span>();
+	    }
+	  },
+
+	  // returns all the neurons in the layer (array)
+	  neurons: function() {
+	    return this.list;
+	  },
+...</pre></li>
     </ul>
 
 
@@ -4663,7 +5136,22 @@ neuron which its input/s is/are gated by this neuron
     <li>description and source-code<pre class="apidocCodePre">selfconnected = function () {
   return this.selfconnection.weight !== 0;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	  connected: function(neuron) {
+	    var result = {
+	      type: null,
+	      connection: false
+	    };
+
+	    if (this == neuron) {
+	      if (this.<span class="apidocCodeKeywordSpan">selfconnected</span>()) {
+	        result.type = 'selfconnection';
+	        result.connection = this.selfconnection;
+	        return result;
+	      } else
+	        return false;
+	    }
+...</pre></li>
     </ul>
 
 
@@ -4716,7 +5204,23 @@ neuron which its input/s is/are gated by this neuron
   var fx = Neuron.squash.LOGISTIC(x);
   return fx * (1 - fx);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	// squashing functions
+	Neuron.squash = {};
+
+	// eq. 5 &amp; 5'
+	Neuron.squash.LOGISTIC = function(x, derivate) {
+	  if (!derivate)
+	    return 1 / (1 + Math.exp(-x));
+	  var fx = Neuron.squash.<span class="apidocCodeKeywordSpan">LOGISTIC</span>(x);
+	  return fx * (1 - fx);
+	};
+	Neuron.squash.TANH = function(x, derivate) {
+	  if (derivate)
+	    return 1 - Math.pow(Neuron.squash.TANH(x), 2);
+	  var eP = Math.exp(x);
+	  var eN = 1 / eP;
+...</pre></li>
     </ul>
 
 
@@ -4752,7 +5256,23 @@ neuron which its input/s is/are gated by this neuron
   var eN = 1 / eP;
   return (eP - eN) / (eP + eN);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	  if (!derivate)
+	    return 1 / (1 + Math.exp(-x));
+	  var fx = Neuron.squash.LOGISTIC(x);
+	  return fx * (1 - fx);
+	};
+	Neuron.squash.TANH = function(x, derivate) {
+	  if (derivate)
+	    return 1 - Math.pow(Neuron.squash.<span class="apidocCodeKeywordSpan">TANH</span>(x), 2);
+	  var eP = Math.exp(x);
+	  var eN = 1 / eP;
+	  return (eP - eN) / (eP + eN);
+	};
+	Neuron.squash.IDENTITY = function(x, derivate) {
+	  return derivate ? 1 : x;
+	};
+...</pre></li>
     </ul>
 
 
@@ -4985,7 +5505,23 @@ neuron which its input/s is/are gated by this neuron
     time: Date.now() - start
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+var targets = [2, 4];
+var distractors = [3, 5];
+var prompts = [0, 1];
+var length = 9;
+
+var lstm = new LSTM(5, 3, 2);
+lstm.trainer.<span class="apidocCodeKeywordSpan">DSR</span>({
+  targets: targets,
+  distractors: distractors,
+  prompts: prompts,
+  length: length,
+  rate: .17,
+  iterations: 250000
+});
+...</pre></li>
     </ul>
 
 
@@ -5259,7 +5795,22 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
   }
   return errorSum;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	      }
+	
+	      if(typeof this.rate === 'function') {
+	        currentRate = this.rate(iterations, lastError);
+	      }
+
+	      if (crossValidate) {
+	        this.<span class="apidocCodeKeywordSpan">_trainSet</span>(trainSet, currentRate, cost);
+	        error += this.test(testSet).error;
+	        currentSetSize = 1;
+	      } else {
+	        error += this._trainSet(set, currentRate, cost);
+	        currentSetSize = set.length;
+	      }
+...</pre></li>
     </ul>
 
 
@@ -5295,7 +5846,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
 
   return results;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	
+	      if(typeof this.rate === 'function') {
+	        currentRate = this.rate(iterations, lastError);
+	      }
+
+	      if (crossValidate) {
+	        this._trainSet(trainSet, currentRate, cost);
+	        error += this.<span class="apidocCodeKeywordSpan">test</span>(testSet).error;
+	        currentSetSize = 1;
+	      } else {
+	        error += this._trainSet(set, currentRate, cost);
+	        currentSetSize = set.length;
+	      }
+
+	      // check error
+...</pre></li>
     </ul>
 
 
@@ -5378,7 +5945,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
     test: this.test(samples.test)
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      assert(ok);
+    });
+}
+});
+
+describe("LSTM - Timing Task", function () {
+var network = new LSTM(2, 7, 1);
+var result = network.trainer.<span class="apidocCodeKeywordSpan">timingTask</span>({
+  log: false,
+  trainSamples: 4000,
+  testSamples: 500
+});
+
+it("should complete the training in less than 200 iterations", function () {
+  assert(result.train.iterations &lt;= 200);
+...</pre></li>
     </ul>
 
 
@@ -5498,7 +6081,23 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
 
   return results;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	      cost: Trainer.cost.MSE
+	    };
+
+	    if (options)
+	      for (var i in options)
+	        defaults[i] = options[i];
+
+	    return this.<span class="apidocCodeKeywordSpan">train</span>([{
+	      input: [0, 0],
+	      output: [0]
+	    }, {
+	      input: [1, 0],
+	      output: [1]
+	    }, {
+	      input: [0, 1],
+...</pre></li>
     </ul>
 
 
@@ -5583,117 +6182,6 @@ myPerceptron.activate([1,1]); // 0.02128894618097928
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.synaptic.synaptic" id="apidoc.module.synaptic.synaptic">module synaptic.synaptic</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.synaptic.synaptic.Layer" id="apidoc.element.synaptic.synaptic.Layer">
-        function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Layer
-        <span class="apidocSignatureSpan">(size, label)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function Layer(size, label) {
-  this.size = size | 0;
-  this.list = [];
-  this.label = label || null;
-  this.connectedTo = [];
-
-  while (size--) {
-    var neuron = new Neuron();
-    this.list.push(neuron);
-  }
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.synaptic.synaptic.Network" id="apidoc.element.synaptic.synaptic.Network">
-        function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Network
-        <span class="apidocSignatureSpan">(layers)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function Network(layers) {
-  if (typeof layers != 'undefined') {
-    this.layers = layers || {
-      input: null,
-      hidden: {},
-      output: null
-    };
-    this.optimized = null;
-  }
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.synaptic.synaptic.Neuron" id="apidoc.element.synaptic.synaptic.Neuron">
-        function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Neuron
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function Neuron() {
-  this.ID = Neuron.uid();
-  this.label = null;
-  this.connections = {
-    inputs: {},
-    projected: {},
-    gated: {}
-  };
-  this.error = {
-    responsibility: 0,
-    projected: 0,
-    gated: 0
-  };
-  this.trace = {
-    elegibility: {},
-    extended: {},
-    influences: {}
-  };
-  this.state = 0;
-  this.old = 0;
-  this.activation = 0;
-  this.selfconnection = new Neuron.connection(this, this, 0); // weight = 0 -&gt; not connected
-  this.squash = Neuron.squash.LOGISTIC;
-  this.neighboors = {};
-  this.bias = Math.random() * .2 - .1;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.synaptic.synaptic.Trainer" id="apidoc.element.synaptic.synaptic.Trainer">
-        function <span class="apidocSignatureSpan">synaptic.synaptic.</span>Trainer
-        <span class="apidocSignatureSpan">(network, options)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function Trainer(network, options) {
-  options = options || {};
-  this.network = network;
-  this.rate = options.rate || .2;
-  this.iterations = options.iterations || 100000;
-  this.error = options.error || .005;
-  this.cost = options.cost || null;
-  this.crossValidate = options.crossValidate || null;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
 
 
 </div>
