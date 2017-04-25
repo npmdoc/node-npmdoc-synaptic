@@ -1,6 +1,6 @@
 # npmdoc-synaptic
 
-#### api documentation for  [synaptic (v1.0.10)](http://synaptic.juancazala.com)  [![npm package](https://img.shields.io/npm/v/npmdoc-synaptic.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-synaptic) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-synaptic.svg)](https://travis-ci.org/npmdoc/node-npmdoc-synaptic)
+#### basic api documentation for  [synaptic (v1.0.10)](http://synaptic.juancazala.com)  [![npm package](https://img.shields.io/npm/v/npmdoc-synaptic.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-synaptic) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-synaptic.svg)](https://travis-ci.org/npmdoc/node-npmdoc-synaptic)
 
 #### architecture-free neural network library
 
@@ -92,7 +92,8 @@
         "test:src": "mocha test --require src/synaptic.js ./test",
         "test:travis": "npm run test:mocha:src && npm run build && npm run test:mocha:dist"
     },
-    "version": "1.0.10"
+    "version": "1.0.10",
+    "bin": {}
 }
 ```
 
